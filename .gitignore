@@ -1,0 +1,20 @@
+# Dependencias
+node_modules/
+**/node_modules/
+
+# Variables de entorno
+.env
+.env.local
+**/.env
+**/.env.local
+
+# Builds / compilados (backend y shared; frontend ya lo cubre su propio .gitignore)
+apps/backend/dist/
+packages/shared/dist/
+*.tsbuildinfo
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
