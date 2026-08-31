@@ -29,9 +29,7 @@ export class CategoryController {
     static async create(req: Request, res: Response) {
         try {
             const result = await createCategory(req.body.name, req.body.description ?? null);
-            return res.status(201).json({
-                id: result.id, name: result.name, description: result.description
-            })
+            return res.status(201).json(result)
         } catch (error) {
             return res.status(500).json({error: "Failed to create category"});
         }
@@ -41,7 +39,7 @@ export class CategoryController {
         try {
             const result = await updateCategory(Number(req.params.id), req.body.name, req.body.description ?? null)
             return result.affectedRows === 0 ? res.status(404).json({error: "Category not found"}) : res.status(200).json({
-                id: req.params.id,
+                id: Number(req.params.id),
                 name: req.body.name,
                 description: req.body.description ?? null,
             });
@@ -55,7 +53,7 @@ export class CategoryController {
             const result = await deleteCategory(Number(req.params.id))
             return result.affectedRows === 0 ? res.status(404).json({error: "Category not found"}) : res.status(204).json();
         } catch (error) {
-            return res.status(500).json({error: "Failed to update category"});
+            return res.status(500).json({error: "Failed to delete category"});
         }
     }
 }
