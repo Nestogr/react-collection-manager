@@ -9,7 +9,8 @@
     "packages/*"
   ],
   "scripts": {
-    "migrate": "npm run migrate --workspace=apps/backend"
+    "migrate": "npm run migrate --workspace=apps/backend",
+    "build:backend": "npm run build --workspace=apps/backend"
   },
   "repository": {
     "type": "git",
