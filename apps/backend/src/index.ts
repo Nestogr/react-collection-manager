@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import {pool} from "./db.js";
 import categoryRoutes from "./routes/category.routes.js";
+import attributeRoutes from "./routes/attribute.routes.js";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/categories", categoryRoutes);
+app.use("/api/attributes", attributeRoutes);
 
 app.get("/health", async (req, res) => {
     try {
