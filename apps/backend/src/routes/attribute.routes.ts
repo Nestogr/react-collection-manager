@@ -1,5 +1,5 @@
-import {Router} from "express"
-import {AttributeController} from "../controllers/attribute.controller.js"
+import { Router } from "express";
+import { AttributeController } from "../controllers/attribute.controller.js";
 
 const router = Router();
 
