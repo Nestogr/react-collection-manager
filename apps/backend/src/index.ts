@@ -5,6 +5,7 @@ import { pool } from "./db.js";
 import categoryRoutes from "./routes/category.routes.js";
 import attributeRoutes from "./routes/attribute.routes.js";
 import categoryAttributeRoutes from "./routes/category-attribute.routes.js";
+import itemRoutes from "./routes/item.routes.js";
 
 dotenv.config();
 
@@ -13,8 +14,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/categories", categoryRoutes);
-app.use("/api/attributes", attributeRoutes);
 app.use("/api/categories", categoryAttributeRoutes);
+app.use("/api/attributes", attributeRoutes);
+app.use("/api/items", itemRoutes);
 
 app.get("/health", async (req, res) => {
   try {
