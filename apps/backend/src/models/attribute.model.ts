@@ -7,24 +7,22 @@ export interface Attribute {
   dataType: "text" | "number" | "date";
 }
 
-export async function getAttributes(): Promise<Attribute[]> {
-  const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM attributes ORDER BY name");
-  return rows.map((row) => ({
+function mapAttribute(row: RowDataPacket): Attribute {
+  return {
     id: row.id,
     name: row.name,
     dataType: row.data_type,
-  })) as Attribute[];
+  };
+}
+
+export async function getAttributes(): Promise<Attribute[]> {
+  const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM attributes ORDER BY name");
+  return rows.map(mapAttribute);
 }
 
 export async function getAttributeById(id: number): Promise<Attribute | null> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM attributes WHERE id = ?", [id]);
-  return rows[0]
-    ? ({
-        id: rows[0].id,
-        name: rows[0].name,
-        dataType: rows[0].data_type,
-      } as Attribute)
-    : null;
+  return rows[0] ? mapAttribute(rows[0]) : null;
 }
 
 export async function createAttribute(

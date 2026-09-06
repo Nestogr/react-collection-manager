@@ -11,7 +11,7 @@ export class CategoryAttributeController {
       const response = await getAttributesByCategory(Number(req.params.categoryId));
       return res.status(200).json(response);
     } catch (error) {
-      return res.status(500).json({ error: "Failed to fetch attributes" });
+      return res.status(500).json({ error: "Failed to fetch category attributes" });
     }
   }
 
@@ -20,7 +20,7 @@ export class CategoryAttributeController {
       const result = await assignAttribute(
         Number(req.params.categoryId),
         Number(req.body.attributeId),
-        req.body.required
+        req.body.required ?? false
       );
       return res.status(201).json(result);
     } catch (error) {
