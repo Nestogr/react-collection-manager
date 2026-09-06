@@ -7,14 +7,22 @@ export interface Category {
   description: string | null;
 }
 
+function mapCategory(row: RowDataPacket): Category {
+  return {
+    id: row.id,
+    name: row.name,
+    description: row.description,
+  };
+}
+
 export async function getCategories(): Promise<Category[]> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM categories ORDER BY name");
-  return rows as Category[];
+  return rows.map(mapCategory);
 }
 
 export async function getCategoryById(id: number): Promise<Category | null> {
   const [rows] = await pool.query<RowDataPacket[]>("SELECT * FROM categories WHERE id = ?", [id]);
-  return (rows[0] as Category) ?? null;
+  return rows[0] ? mapCategory(rows[0]) : null;
 }
 
 export async function createCategory(name: string, description: string | null): Promise<Category> {

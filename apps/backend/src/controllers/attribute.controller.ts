@@ -19,7 +19,8 @@ export class AttributeController {
 
   static async show(req: Request, res: Response) {
     try {
-      const response = await getAttributeById(Number(req.params.id));
+      const id = Number(req.params.id);
+      const response = await getAttributeById(id);
       return response
         ? res.status(200).json(response)
         : res.status(404).json({ error: "Attribute not found" });
@@ -39,11 +40,12 @@ export class AttributeController {
 
   static async update(req: Request, res: Response) {
     try {
-      const result = await updateAttribute(Number(req.params.id), req.body.name, req.body.dataType);
+      const id = Number(req.params.id);
+      const result = await updateAttribute(id, req.body.name, req.body.dataType);
       return result.affectedRows === 0
         ? res.status(404).json({ error: "Attribute not found" })
         : res.status(200).json({
-            id: Number(req.params.id),
+            id,
             name: req.body.name,
             dataType: req.body.dataType,
           });
@@ -54,7 +56,8 @@ export class AttributeController {
 
   static async destroy(req: Request, res: Response) {
     try {
-      const result = await deleteAttribute(Number(req.params.id));
+      const id = Number(req.params.id);
+      const result = await deleteAttribute(id);
       return result.affectedRows === 0
         ? res.status(404).json({ error: "Attribute not found" })
         : res.status(204).json();

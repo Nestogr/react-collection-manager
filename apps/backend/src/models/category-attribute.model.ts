@@ -1,5 +1,5 @@
 import { pool } from "../db.js";
-import type { RowDataPacket, ResultSetHeader } from "mysql2";
+import type { ResultSetHeader, RowDataPacket } from "mysql2";
 
 export interface CategoryAttribute {
   id: number;
@@ -15,6 +15,17 @@ export interface CategoryAttributeWithAttribute {
   required: boolean;
   attributeName: string;
   attributeDataType: "text" | "number" | "date";
+}
+
+function mapCategoryAttributeWithAttribute(row: RowDataPacket): CategoryAttributeWithAttribute {
+  return {
+    id: row.id,
+    categoryId: row.category_id,
+    attributeId: row.attribute_id,
+    required: Boolean(row.required),
+    attributeName: row.attribute_name,
+    attributeDataType: row.attribute_data_type,
+  };
 }
 
 export async function getAttributesByCategory(
@@ -33,14 +44,7 @@ export async function getAttributesByCategory(
          WHERE category_attributes.category_id = ?`,
     [categoryId]
   );
-  return rows.map((row) => ({
-    id: row.id,
-    categoryId: row.category_id,
-    attributeId: row.attribute_id,
-    required: Boolean(row.required),
-    attributeName: row.attribute_name,
-    attributeDataType: row.attribute_data_type,
-  })) as CategoryAttributeWithAttribute[];
+  return rows.map(mapCategoryAttributeWithAttribute);
 }
 
 export async function assignAttribute(
@@ -58,6 +62,18 @@ export async function assignAttribute(
     attributeId,
     required,
   };
+}
+
+export async function updateAttribute(
+  categoryId: number,
+  attributeId: number,
+  required: boolean
+): Promise<ResultSetHeader> {
+  const [result] = await pool.query<ResultSetHeader>(
+    `UPDATE category_attributes SET required = ? WHERE category_id = ? AND attribute_id = ?`,
+    [required, categoryId, attributeId]
+  );
+  return result;
 }
 
 export async function unassignAttribute(

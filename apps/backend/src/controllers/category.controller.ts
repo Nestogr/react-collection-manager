@@ -19,7 +19,8 @@ export class CategoryController {
 
   static async show(req: Request, res: Response) {
     try {
-      const response = await getCategoryById(Number(req.params.id));
+      const id = Number(req.params.id);
+      const response = await getCategoryById(id);
       return response
         ? res.status(200).json(response)
         : res.status(404).json({ error: "Category not found" });
@@ -39,15 +40,12 @@ export class CategoryController {
 
   static async update(req: Request, res: Response) {
     try {
-      const result = await updateCategory(
-        Number(req.params.id),
-        req.body.name,
-        req.body.description ?? null
-      );
+      const id = Number(req.params.id);
+      const result = await updateCategory(id, req.body.name, req.body.description ?? null);
       return result.affectedRows === 0
         ? res.status(404).json({ error: "Category not found" })
         : res.status(200).json({
-            id: Number(req.params.id),
+            id,
             name: req.body.name,
             description: req.body.description ?? null,
           });
@@ -58,7 +56,8 @@ export class CategoryController {
 
   static async destroy(req: Request, res: Response) {
     try {
-      const result = await deleteCategory(Number(req.params.id));
+      const id = Number(req.params.id);
+      const result = await deleteCategory(id);
       return result.affectedRows === 0
         ? res.status(404).json({ error: "Category not found" })
         : res.status(204).json();

@@ -13,7 +13,8 @@ export class ItemController {
 
   static async show(req: Request, res: Response) {
     try {
-      const response = await getItemById(Number(req.params.id));
+      const id = Number(req.params.id);
+      const response = await getItemById(id);
       return response
         ? res.status(200).json(response)
         : res.status(404).json({ error: "Item not found" });
@@ -38,8 +39,9 @@ export class ItemController {
 
   static async update(req: Request, res: Response) {
     try {
+      const id = Number(req.params.id);
       const result = await updateItem(
-        Number(req.params.id),
+        id,
         req.body.name,
         req.body.categoryId,
         req.body.description ?? null,
@@ -48,7 +50,7 @@ export class ItemController {
       return result.affectedRows === 0
         ? res.status(404).json({ error: "Item not found" })
         : res.status(200).json({
-            id: Number(req.params.id),
+            id,
             name: req.body.name,
             categoryId: req.body.categoryId,
             description: req.body.description ?? null,
@@ -61,7 +63,8 @@ export class ItemController {
 
   static async destroy(req: Request, res: Response) {
     try {
-      const result = await deleteItem(Number(req.params.id));
+      const id = Number(req.params.id);
+      const result = await deleteItem(id);
       return result.affectedRows === 0
         ? res.status(404).json({ error: "Item not found" })
         : res.status(204).json();
