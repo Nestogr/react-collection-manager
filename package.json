@@ -9,7 +9,8 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "migrate": "npm run migrate --workspace=apps/backend",
+    "build:backend": "npm run build --workspace=apps/backend"
   },
   "repository": {
     "type": "git",
