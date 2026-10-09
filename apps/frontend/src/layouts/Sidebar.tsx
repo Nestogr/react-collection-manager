@@ -1,4 +1,4 @@
-import { Folder, ListChecks, type LucideIcon, Package } from "lucide-react";
+import { Folder, House, ListChecks, type LucideIcon, Package } from "lucide-react";
 import { NavLink } from "react-router";
 
 export interface SidebarLink {
@@ -8,6 +8,7 @@ export interface SidebarLink {
 }
 
 const routes: SidebarLink[] = [
+  { label: "Home", path:"/", icon: House },
   { label: "Categories", path: "/categories", icon: Folder },
   { label: "Attributes", path: "/attributes", icon: ListChecks },
   { label: "Items", path: "/items", icon: Package },
