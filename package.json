@@ -10,7 +10,10 @@
   ],
   "scripts": {
     "migrate": "npm run migrate --workspace=apps/backend",
-    "build:backend": "npm run build --workspace=apps/backend"
+    "build": "npm run build:shared && npm run build:backend && npm run build:frontend",
+    "build:shared": "npm run build --workspace=packages/shared",
+    "build:backend": "npm run build --workspace=apps/backend",
+    "build:frontend": "npm run build --workspace=apps/frontend"
   },
   "repository": {
     "type": "git",

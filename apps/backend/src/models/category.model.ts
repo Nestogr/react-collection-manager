@@ -1,11 +1,6 @@
 import { pool } from "../db.js";
 import type { ResultSetHeader, RowDataPacket } from "mysql2";
-
-export interface Category {
-  id: number;
-  name: string;
-  description: string | null;
-}
+import type { Category } from "shared";
 
 function mapCategory(row: RowDataPacket): Category {
   return {

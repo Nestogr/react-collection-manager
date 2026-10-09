@@ -1,21 +1,6 @@
 import { pool } from "../db.js";
 import type { ResultSetHeader, RowDataPacket } from "mysql2";
-
-export interface CategoryAttribute {
-  id: number;
-  categoryId: number;
-  attributeId: number;
-  required: boolean;
-}
-
-export interface CategoryAttributeWithAttribute {
-  id: number;
-  categoryId: number;
-  attributeId: number;
-  required: boolean;
-  attributeName: string;
-  attributeDataType: "text" | "number" | "date";
-}
+import type { CategoryAttribute, CategoryAttributeWithAttribute } from "shared";
 
 function mapCategoryAttributeWithAttribute(row: RowDataPacket): CategoryAttributeWithAttribute {
   return {

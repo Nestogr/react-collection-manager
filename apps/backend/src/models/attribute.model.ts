@@ -1,11 +1,6 @@
 import { pool } from "../db.js";
 import type { ResultSetHeader, RowDataPacket } from "mysql2";
-
-export interface Attribute {
-  id: number;
-  name: string;
-  dataType: "text" | "number" | "date";
-}
+import type { Attribute } from "shared";
 
 function mapAttribute(row: RowDataPacket): Attribute {
   return {

@@ -1,13 +1,6 @@
 import { pool } from "../db.js";
 import type { ResultSetHeader, RowDataPacket } from "mysql2";
-
-export interface Item {
-  id: number;
-  name: string;
-  categoryId: number;
-  description: string | null;
-  image: string | null;
-}
+import type { Item } from "shared";
 
 function mapItem(row: RowDataPacket): Item {
   return {

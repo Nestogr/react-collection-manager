@@ -1,16 +1,6 @@
 import { pool } from "../db.js";
 import type { ResultSetHeader, RowDataPacket } from "mysql2";
-
-export interface ItemAttributeValue {
-  id: number;
-  itemId: number;
-  attributeId: number;
-  value: string;
-}
-
-export interface ItemAttributeValueWithAttribute extends ItemAttributeValue {
-  attributeName: string;
-}
+import type { ItemAttributeValue, ItemAttributeValueWithAttribute } from "shared";
 
 function mapItemAttributeValueWithAttribute(row: RowDataPacket): ItemAttributeValueWithAttribute {
   return {
